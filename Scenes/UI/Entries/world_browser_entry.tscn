@@ -1,0 +1,166 @@
+[gd_scene load_steps=10 format=3 uid="uid://bl0xi4f2xh6k3"]
+
+[ext_resource type="Script" path="res://Source/Management/HUD/BrowserEntry.cs" id="1_ksjan"]
+[ext_resource type="Script" path="res://Source/Management/HUD/RichTextLabelAutoSizeNode.cs" id="1_oagrn"]
+[ext_resource type="Script" path="res://Source/Management/HUD/RichTextLabelAutoSize.cs" id="2_phgtg"]
+[ext_resource type="Shader" path="res://Assets/Shaders/rounded_corders.gdshader" id="3_qr0yt"]
+[ext_resource type="Texture2D" uid="uid://bgwfrcvu7sa0q" path="res://Assets/Test/bongbongportrait.jpg" id="4_eiwrk"]
+[ext_resource type="StyleBox" uid="uid://b5q6d4m52i0sj" path="res://Assets/Themes/lackluster_theme/main_style_chips.tres" id="5_pmuco"]
+[ext_resource type="StyleBox" uid="uid://cvfjyfpc88d0o" path="res://Assets/Themes/lackluster_theme/main_style_frame.tres" id="6_3vqhd"]
+[ext_resource type="StyleBox" uid="uid://yh3n2pqpaf6n" path="res://Assets/Themes/lackluster_theme/main_style_small_buttons.tres" id="7_15g4f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0mthw"]
+shader = ExtResource("3_qr0yt")
+shader_parameter/radius_scale = 1.0
+shader_parameter/rounded_corner_top_left = true
+shader_parameter/rounded_corner_top_right = true
+shader_parameter/rounded_corner_bottom_left = true
+shader_parameter/rounded_corner_bottom_right = true
+shader_parameter/width = 3.0
+shader_parameter/height = 1.08
+
+[node name="World Browser Entry" type="PanelContainer" node_paths=PackedStringArray("DetailsButton", "QuickButton", "Label", "DetailText")]
+custom_minimum_size = Vector2(0, 350)
+size_flags_horizontal = 3
+mouse_filter = 1
+script = ExtResource("1_ksjan")
+DetailsButton = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Details Button")
+QuickButton = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Quick Join Button")
+Label = NodePath("MarginContainer/VBoxContainer/RichTextLabelAutoSizeNode/Label")
+DetailText = NodePath("MarginContainer/VBoxContainer/Control/TextureRect/MarginContainer/HBoxContainer/PanelContainer/RichTextLabelAutoSizeNode/Player Count")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RichTextLabelAutoSizeNode" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+mouse_filter = 1
+script = ExtResource("1_oagrn")
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer/RichTextLabelAutoSizeNode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 21
+theme_override_font_sizes/italics_font_size = 21
+theme_override_font_sizes/mono_font_size = 21
+theme_override_font_sizes/normal_font_size = 21
+theme_override_font_sizes/bold_font_size = 21
+bbcode_enabled = true
+text = "[center]Skibidi World[/center]"
+script = ExtResource("2_phgtg")
+MinMaxSize = Vector2(8, 32)
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Control"]
+material = SubResource("ShaderMaterial_0mthw")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.015
+anchor_right = 0.98
+anchor_bottom = 0.96
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("4_eiwrk")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Control/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Control/TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Control/TextureRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 24)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("5_pmuco")
+
+[node name="RichTextLabelAutoSizeNode" type="Control" parent="MarginContainer/VBoxContainer/Control/TextureRect/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_oagrn")
+
+[node name="Player Count" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Control/TextureRect/MarginContainer/HBoxContainer/PanelContainer/RichTextLabelAutoSizeNode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 15
+theme_override_font_sizes/italics_font_size = 15
+theme_override_font_sizes/mono_font_size = 15
+theme_override_font_sizes/normal_font_size = 15
+theme_override_font_sizes/bold_font_size = 15
+bbcode_enabled = true
+text = "[center]👤 1.2k [/center]"
+script = ExtResource("2_phgtg")
+MinMaxSize = Vector2(12, 15)
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Control"]
+clip_children = 2
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("6_3vqhd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="Details Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/normal = ExtResource("7_15g4f")
+text = "Details"
+
+[node name="Quick Join Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/normal = ExtResource("7_15g4f")
+text = "Quick Join"

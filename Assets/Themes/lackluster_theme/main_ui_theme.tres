@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://bk8eop2660llo"]
 
 [ext_resource type="StyleBox" uid="uid://fo8atkxkkm4g" path="res://Assets/Themes/lackluster_theme/main_style_box_flat.tres" id="1_6bvlg"]
-[ext_resource type="StyleBox" uid="uid://dnuvncjdc1n8l" path="res://Assets/Themes/lackluster_theme/main_style_buttons_hover.tres" id="1_kvvbl"]
-[ext_resource type="StyleBox" uid="uid://pmvuj543xol" path="res://Assets/Themes/lackluster_theme/main_style_buttons_normal.tres" id="1_uoaf0"]
-[ext_resource type="StyleBox" uid="uid://wgwqegyyt1i4" path="res://Assets/Themes/lackluster_theme/main_style_buttons_pressed.tres" id="3_3ir4l"]
+[ext_resource type="StyleBox" path="res://Assets/Themes/lackluster_theme/main_style_buttons_hover.tres" id="1_kvvbl"]
+[ext_resource type="StyleBox" path="res://Assets/Themes/lackluster_theme/main_style_buttons_normal.tres" id="1_uoaf0"]
+[ext_resource type="StyleBox" path="res://Assets/Themes/lackluster_theme/main_style_buttons_pressed.tres" id="3_3ir4l"]
 
 [resource]
 /colors/candy = Color(0.862745, 0.14902, 0.498039, 1)

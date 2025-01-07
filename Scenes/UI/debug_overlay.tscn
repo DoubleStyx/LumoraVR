@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Source/Management/HUD/DebugOverlay.cs" id="1_jnyeq"]
 [ext_resource type="Theme" uid="uid://bk8eop2660llo" path="res://Assets/Themes/lackluster_theme/main_ui_theme.tres" id="1_sbq1b"]
-[ext_resource type="StyleBox" uid="uid://pmvuj543xol" path="res://Assets/Themes/lackluster_theme/main_style_buttons_normal.tres" id="3_js1hg"]
+[ext_resource type="StyleBox" path="res://Assets/Themes/lackluster_theme/main_style_buttons_normal.tres" id="3_js1hg"]
 [ext_resource type="Script" path="res://Source/Management/HUD/RichTextLabelAutoSizeNode.cs" id="4_wk7ua"]
 [ext_resource type="Script" path="res://Source/Management/HUD/RichTextLabelAutoSize.cs" id="5_43rqh"]
 
@@ -52,6 +52,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/bold_italics_font_size = 57
 theme_override_font_sizes/italics_font_size = 57
 theme_override_font_sizes/mono_font_size = 57

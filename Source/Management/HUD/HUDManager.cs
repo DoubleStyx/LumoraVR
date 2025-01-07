@@ -25,12 +25,14 @@ public partial class HUDManager : Control
 
         if (@event.IsActionPressed("ui_debug"))
         {
+            if (MainMenu.Visible) return;
             InputManager.MovementLocked = !InputManager.MovementLocked;
             DebugOverlay.Visible = InputManager.MovementLocked;
         }
 
         if (@event.IsActionPressed("ui_cancel"))
         {
+            if (DebugOverlay.Visible) return;
             InputManager.MovementLocked = !InputManager.MovementLocked;
             MainMenu.Visible = InputManager.MovementLocked;
         }
