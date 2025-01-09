@@ -11,7 +11,8 @@ namespace Aquamarine.Source.Networking;
 public partial class WebsocketSignalingClient : Node
 {
 
-    public enum Message {
+    public enum Message
+    {
         JOIN,
         ID,
         PEER_CONNECT,
@@ -33,10 +34,10 @@ public partial class WebsocketSignalingClient : Node
 
     [Signal]
     public delegate void LobbyJoinedEventHandler(string lobby);
-    
+
     [Signal]
     public delegate void ConnectedEventHandler(int id, bool usedMesh);
-    
+
     [Signal]
     public delegate void DisconnectedEventHandler();
 
@@ -55,36 +56,43 @@ public partial class WebsocketSignalingClient : Node
     [Signal]
     // TODO: Fix Types
     public delegate void CandidateRecivedEventHandler(int id, int mid, int index, int sdp);
-    
+
     [Signal]
     public delegate void LobbySealedEventHandler();
 
-    public void ConnectToUrl(string url) {
+    public void ConnectToUrl(string url)
+    {
         Close();
         code = 1000;
         reason = "Unknown";
         ws.ConnectToUrl(url);
     }
 
-    public void Close() {
+    public void Close()
+    {
         ws.Close();
     }
 
-    public override void _Process(double delta) {
+    public override void _Process(double delta)
+    {
         ws.Poll();
 
         WebSocketPeer.State state = ws.GetReadyState();
-        if (state != oldState && state == WebSocketPeer.State.Open && autoJoin) {
+        if (state != oldState && state == WebSocketPeer.State.Open && autoJoin)
+        {
             JoinLobby(lobby);
         }
 
-        while (state == WebSocketPeer.State.Open && ws.GetAvailablePacketCount() > 0) {
-            if (!ParseMessage()) {
+        while (state == WebSocketPeer.State.Open && ws.GetAvailablePacketCount() > 0)
+        {
+            if (!ParseMessage())
+            {
                 GD.PushError("Error parsing malformed message form server.");
             }
         }
 
-        if (state != oldState && state == WebSocketPeer.State.Closed) {
+        if (state != oldState && state == WebSocketPeer.State.Closed)
+        {
             code = ws.GetCloseCode();
             reason = ws.GetCloseReason();
             EmitSignal(SignalName.Disconnected);
@@ -93,31 +101,36 @@ public partial class WebsocketSignalingClient : Node
         oldState = state;
     }
 
-    private bool ParseMessage() {
+    private bool ParseMessage()
+    {
         Variant parsedVariant = Json.ParseString(ws.GetPacket().GetStringFromUtf8());
 
         // Make sure godot is not being special
-        if (parsedVariant.GetType() != typeof(Godot.Collections.Dictionary)) {
+        if (parsedVariant.GetType() != typeof(Godot.Collections.Dictionary))
+        {
             return false;
         }
 
         Godot.Collections.Dictionary parsed = (Godot.Collections.Dictionary)parsedVariant;
 
         // Check packet structure
-        if (!parsed.ContainsKey("type") || !parsed.ContainsKey("id") || !parsed.ContainsKey("data")) {
+        if (!parsed.ContainsKey("type") || !parsed.ContainsKey("id") || !parsed.ContainsKey("data"))
+        {
             return false;
         }
 
         // Make sure there is data
         Variant dataVariant;
-        if (parsed.TryGetValue("data", out dataVariant) || dataVariant.GetType() != typeof(string)) {
+        if (parsed.TryGetValue("data", out dataVariant) || dataVariant.GetType() != typeof(string))
+        {
             return false;
         }
 
         int type;
         int sourceId;
 
-        if (!int.TryParse((string)parsed["type"], out type) || !int.TryParse((string)parsed["id"], out sourceId)) {
+        if (!int.TryParse((string)parsed["type"], out type) || !int.TryParse((string)parsed["id"], out sourceId))
+        {
             return false;
         }
 
@@ -150,15 +163,17 @@ public partial class WebsocketSignalingClient : Node
             case Message.ANSWER:
                 EmitSignal(SignalName.AnswerRecived, sourceId, (string)parsed["data"]);
                 break;
-            
+
             case Message.CANDIDATE:
-                string[] candidate = ((string)parsed["data"]).Split(new char[] {'\n'}, StringSplitOptions.None);
-                
+                string[] candidate = ((string)parsed["data"]).Split(new char[] { '\n' }, StringSplitOptions.None);
+
                 // Verify candidate
-                if (candidate.Length != 3) {
+                if (candidate.Length != 3)
+                {
                     return false;
                 }
-                if (!int.TryParse(candidate[1], out _)) {
+                if (!int.TryParse(candidate[1], out _))
+                {
                     return false;
                 }
 
@@ -172,23 +187,28 @@ public partial class WebsocketSignalingClient : Node
         return true;
     }
 
-    public int JoinLobby(string lobby) {
+    public int JoinLobby(string lobby)
+    {
         return SendMessage(Message.JOIN, mesh ? 0 : 1, lobby);
     }
 
-    public int SendCandidate(int id, string mid, int index, string sdp) {
+    public int SendCandidate(int id, string mid, int index, string sdp)
+    {
         return SendMessage(Message.CANDIDATE, id, $"\n{mid}\n{index}\n{sdp}");
     }
 
-    public int SendOffer(int id, string offer) {
+    public int SendOffer(int id, string offer)
+    {
         return SendMessage(Message.OFFER, id, offer);
     }
 
-    public int SendAnswer(int id, string answer) {
+    public int SendAnswer(int id, string answer)
+    {
         return SendMessage(Message.ANSWER, id, answer);
     }
 
-    private int SendMessage(Message type, int id, string data="") {
+    private int SendMessage(Message type, int id, string data = "")
+    {
         Variant message = new Godot.Collections.Dictionary<string, Variant>
         {
             {"type", (int)type},
