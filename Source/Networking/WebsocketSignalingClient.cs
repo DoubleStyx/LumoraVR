@@ -1,5 +1,4 @@
 using Godot;
-// using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -28,8 +27,8 @@ public partial class WebsocketSignalingClient : Node
     public bool mesh = true;
 
     private WebSocketPeer ws = new WebSocketPeer();
-    private int code = 1000;
-    private string reason = "Unknown";
+    public int code = 1000;
+    public string reason = "Unknown";
     private WebSocketPeer.State oldState = WebSocketPeer.State.Closed;
 
     [Signal]
@@ -87,7 +86,7 @@ public partial class WebsocketSignalingClient : Node
         {
             if (!ParseMessage())
             {
-                GD.PushError("Error parsing malformed message form server.");
+                GD.PrintErr("Error parsing malformed message form server.");
             }
         }
 
