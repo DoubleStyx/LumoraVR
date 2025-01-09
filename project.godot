@@ -37,6 +37,10 @@ project/assembly_name="Aquamarine"
 
 run/main_run_args="--xr-mode off"
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [filesystem]
 
 import/blender/enabled=false
